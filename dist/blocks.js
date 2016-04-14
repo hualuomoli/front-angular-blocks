@@ -44,8 +44,7 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception', [
-    // blocks
+  angular.module('blocks.http', [
     'blocks.logger'
   ]);
 
@@ -53,20 +52,9 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.http', [
-    'blocks.logger',
-    'ngResource'
-  ]);
-
-})();
-(function () {
-  'use strict';
-
-  angular.module('blocks.routehelper', [
+  angular.module('blocks.exception', [
     // blocks
-    'blocks.logger',
-    // assets
-    'ui.router'
+    'blocks.logger'
   ]);
 
 })();
@@ -80,21 +68,12 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception')
-    .provider('exceptionHandler', exceptionHandlerProvider);
-
-  function exceptionHandlerProvider() {
-    /* jshint validthis:true */
-    this.config = {
-      appErrorPrefix: 'front-' // error log's prefix
-    };
-
-    this.$get = function () {
-      return {
-        config: this.config
-      };
-    };
-  }
+  angular.module('blocks.routehelper', [
+    // blocks
+    'blocks.logger',
+    // assets
+    'ui.router'
+  ]);
 
 })();
 (function () {
@@ -116,6 +95,26 @@
       }
     }
 
+  }
+
+})();
+(function () {
+  'use strict';
+
+  angular.module('blocks.exception')
+    .provider('exceptionHandler', exceptionHandlerProvider);
+
+  function exceptionHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      appErrorPrefix: 'front-' // error log's prefix
+    };
+
+    this.$get = function () {
+      return {
+        config: this.config
+      };
+    };
   }
 
 })();
@@ -200,6 +199,51 @@
 (function () {
   'use strict';
 
+  logger.$inject = ["$log"];
+  angular.module('blocks.logger')
+    .factory('logger', logger);
+
+  /* @ngInject */
+  function logger($log) {
+    return {
+      success: success,
+      log: log,
+      debug: debug,
+      info: info,
+      warn: warn,
+      error: error,
+    };
+
+    /////////////////////
+
+    function success(message, data) {
+      $log.info('Success: ' + message, data);
+    }
+
+    function log(message, data) {
+      $log.log('Log: ' + message, data);
+    }
+
+    function debug(message, data) {
+      $log.debug('Debug: ' + message, data);
+    }
+
+    function info(message, data) {
+      $log.info('Info: ' + message, data);
+    }
+
+    function warn(message, data) {
+      $log.warn('Warning: ' + message, data);
+    }
+
+    function error(message, data) {
+      $log.error('Error: ' + message, data);
+    }
+  }
+})();
+(function () {
+  'use strict';
+
   routehelper.$inject = ["$rootScope", "logger"];
   angular.module('blocks.routehelper')
     .factory('routehelper', routehelper);
@@ -243,51 +287,6 @@
           logger.warning('state not found. params = ', toState.toParams);
         }
       );
-    }
-  }
-})();
-(function () {
-  'use strict';
-
-  logger.$inject = ["$log"];
-  angular.module('blocks.logger')
-    .factory('logger', logger);
-
-  /* @ngInject */
-  function logger($log) {
-    return {
-      success: success,
-      log: log,
-      debug: debug,
-      info: info,
-      warn: warn,
-      error: error,
-    };
-
-    /////////////////////
-
-    function success(message, data) {
-      $log.info('Success: ' + message, data);
-    }
-
-    function log(message, data) {
-      $log.log('Log: ' + message, data);
-    }
-
-    function debug(message, data) {
-      $log.debug('Debug: ' + message, data);
-    }
-
-    function info(message, data) {
-      $log.info('Info: ' + message, data);
-    }
-
-    function warn(message, data) {
-      $log.warn('Warning: ' + message, data);
-    }
-
-    function error(message, data) {
-      $log.error('Error: ' + message, data);
     }
   }
 })();

@@ -19,7 +19,6 @@ module.exports = function (config) {
       // assets
       '../bower_components/jquery/dist/jquery.js',
       '../bower_components/angular/angular.js',
-      '../bower_components/angular-resource/angular-resource.js',
       '../bower_components/angular-ui-router/release/angular-ui-router.js',
       // app
       '../src/**/*.extends.js',
