@@ -1,0 +1,42 @@
+{
+  "name": "front-angular-blocks",
+  "version": "1.0.0",
+  "description": "some angular assets for front",
+  "main": "README.md",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "cd test & karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hualuomoli/front-angular-blocks.git"
+  },
+  "keywords": [
+    "angular",
+    "front",
+    "blocks"
+  ],
+  "author": "hualuomoli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hualuomoli/front-angular-blocks/issues"
+  },
+  "homepage": "https://github.com/hualuomoli/front-angular-blocks#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8"
+  }
+}

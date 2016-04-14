@@ -1,0 +1,15 @@
+{
+  "predef": [
+    "module",
+    "beforeEach",
+    "describe",
+    "it",
+    "expect",
+    "console",
+    "angular"
+  ],
+  "strict": false,
+  "undef": true,
+  "unused": false,
+  "asi": true
+}

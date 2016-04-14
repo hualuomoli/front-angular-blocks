@@ -1,0 +1,24 @@
+{
+  "name": "front-angular-blocks",
+  "description": "some angular assets for front",
+  "main": "README.md",
+  "authors": [
+    "hualuomoli"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "front",
+    "blocks"
+  ],
+  "homepage": "https://github.com/hualuomoli/front-angular-blocks",
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-ui-router": "^0.2.18",
+    "jquery": "^2.2.3",
+    "angular-resource": "^1.5.3"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.3"
+  }
+}

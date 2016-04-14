@@ -1,0 +1,12 @@
+{
+  "predef": [
+    "require",
+    "angular",
+    "$",
+    "console"
+  ],
+  "strict": false,
+  "undef": true,
+  "unused": false,
+  "asi": true
+}
