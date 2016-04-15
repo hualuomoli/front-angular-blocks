@@ -39,6 +39,12 @@
       http.get('/demo/query')
         .success(function (data) {
           expect(data).toBe('ok');
+        })
+        .success(function (data, status, headers, config) {
+          console.log(data);
+          console.log(status);
+          console.log(headers);
+          console.log(config);
         });
 
       http.get('/demo/query', {

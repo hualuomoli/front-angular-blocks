@@ -9,6 +9,9 @@
     /* jshint validthis:true */
     this.config = {
       baseUrl: '', // baseUrl
+      urlencodedHeader: { // http post urlencoded header
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     }
 
     this.$get = function () {
