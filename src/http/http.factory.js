@@ -56,22 +56,20 @@
       switch (methodName) {
       case 'GET':
       case 'get':
-        get(uri, params, headers);
-        break;
+        return get(uri, params, headers);
       case 'POST':
       case 'post':
-        post(uri, params, headers);
-        break;
+        return post(uri, params, headers);
       case 'DELETE':
       case 'DEL':
       case 'delete':
       case 'del':
-        del(uri, params, headers);
-        break;
+        return del(uri, params, headers);
       case 'PUT':
       case 'put':
-        put(uri, params, headers);
-        break;
+        return put(uri, params, headers);
+      default:
+        throw new Error('there is can not constant methodName ' + methodName);
       }
     }
 
