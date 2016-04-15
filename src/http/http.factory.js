@@ -88,7 +88,11 @@
     }
 
     function getBaseUrl(uri) {
-      return httpHandler.config.baseUrl.joinPath(uri);
+      logger.debug('baseUrl', httpHandler.config.baseUrl);
+      logger.debug('uri', uri);
+      var realUrl = httpHandler.config.baseUrl.joinPath(uri);
+      logger.debug('realUrl', realUrl);
+      return realUrl;
     }
 
   }
