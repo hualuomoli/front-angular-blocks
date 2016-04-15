@@ -91,6 +91,9 @@
       if (httpHandler.config.baseUrl === '') {
         return uri;
       }
+      if (uri.startsWith('http://') || uri.startsWith('https://')) {
+        return uri;
+      }
       return httpHandler.config.baseUrl.joinPath(uri);
     }
 
