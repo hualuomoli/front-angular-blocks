@@ -19,6 +19,9 @@
   // join other path to this
   String.prototype.joinPath = function (str) {
     var s = this;
+    if (s === '') {
+      return str;
+    }
     if (!this.endsWith('/') && !this.endsWith('\\')) {
       s += '/';
     }
@@ -44,8 +47,7 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception', [
-    // blocks
+  angular.module('blocks.http', [
     'blocks.logger'
   ]);
 
@@ -53,7 +55,8 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.http', [
+  angular.module('blocks.exception', [
+    // blocks
     'blocks.logger'
   ]);
 
@@ -79,26 +82,6 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception')
-    .provider('exceptionHandler', exceptionHandlerProvider);
-
-  function exceptionHandlerProvider() {
-    /* jshint validthis:true */
-    this.config = {
-      appErrorPrefix: 'front-' // error log's prefix
-    };
-
-    this.$get = function () {
-      return {
-        config: this.config
-      };
-    };
-  }
-
-})();
-(function () {
-  'use strict';
-
   angular.module('blocks.http')
     .provider('httpHandler', httpHandleProvider);
 
@@ -118,6 +101,26 @@
       }
     }
 
+  }
+
+})();
+(function () {
+  'use strict';
+
+  angular.module('blocks.exception')
+    .provider('exceptionHandler', exceptionHandlerProvider);
+
+  function exceptionHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      appErrorPrefix: 'front-' // error log's prefix
+    };
+
+    this.$get = function () {
+      return {
+        config: this.config
+      };
+    };
   }
 
 })();
@@ -212,6 +215,9 @@
     }
 
     function getBaseUrl(uri) {
+      if (httpHandler.config.baseUrl === '') {
+        return uri;
+      }
       return httpHandler.config.baseUrl.joinPath(uri);
     }
 
