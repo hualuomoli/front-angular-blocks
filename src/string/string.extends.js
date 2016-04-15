@@ -19,6 +19,9 @@
   // join other path to this
   String.prototype.joinPath = function (str) {
     var s = this;
+    if (s === '') {
+      return str;
+    }
     if (!this.endsWith('/') && !this.endsWith('\\')) {
       s += '/';
     }
