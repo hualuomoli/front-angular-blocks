@@ -32,7 +32,7 @@ gulp.task('js', ['clean'], function () {
       './src/**/*.service.js',
       './src/**/*.decorator.js'
     ])
-    .pipe(concat('blocks.js'))
+    .pipe(concat('front-angular-blocks.js'))
     .pipe(ngAnnotate())
     .pipe(gulp.dest('./dist'))
     .pipe(sourcemaps.init())

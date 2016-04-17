@@ -29,7 +29,7 @@ module.exports = function (config) {
       '../src/**/*.decorator.js',
 
       // test
-      '../bower_components/angular-mocks/angular-mocks.js',
+      '../node_modules/angular-mocks/angular-mocks.js',
       './**/*.test.js'
 
     ],
