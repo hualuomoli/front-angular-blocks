@@ -97,8 +97,7 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception', [
-    // blocks
+  angular.module('blocks.http', [
     'blocks.logger'
   ]);
 
@@ -106,7 +105,8 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.http', [
+  angular.module('blocks.exception', [
+    // blocks
     'blocks.logger'
   ]);
 
@@ -132,21 +132,9 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception')
-    .provider('exceptionHandler', exceptionHandlerProvider);
-
-  function exceptionHandlerProvider() {
-    /* jshint validthis:true */
-    this.config = {
-      appErrorPrefix: 'front-' // error log's prefix
-    };
-
-    this.$get = function () {
-      return {
-        config: this.config
-      };
-    };
-  }
+  angular.module('blocks.user', [
+    'blocks.logger'
+  ]);
 
 })();
 (function () {
@@ -171,6 +159,52 @@
       }
     }
 
+  }
+
+})();
+(function () {
+  'use strict';
+
+  angular.module('blocks.exception')
+    .provider('exceptionHandler', exceptionHandlerProvider);
+
+  function exceptionHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      appErrorPrefix: 'front-' // error log's prefix
+    };
+
+    this.$get = function () {
+      return {
+        config: this.config
+      };
+    };
+  }
+
+})();
+(function () {
+  'use strict';
+
+  angular.module('blocks.user')
+    .provider('userHandler', userHandlerProvider);
+
+  function userHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      status: { // 返回状态码
+        Unauthorized: 401 // 没有权限
+      },
+      erroCode: { // 返回错误码
+        nologin: '9999', // 未登录
+        overtime: '9998', // 登录超时
+      }
+    }
+
+    this.$get = function () {
+      return {
+        config: this.config
+      }
+    }
   }
 
 })();
@@ -399,6 +433,51 @@
       exception.message = appErrorPrefix + exception.message;
       logger.error(exception.message, errorData);
     };
+  }
+
+})();
+(function () {
+  'use strict';
+
+  userInterceptor.$inject = ["$q", "$rootScope", "userHandler"];
+  angular.module('blocks.user')
+    .factory('userInterceptor', userInterceptor);
+
+  /** ngInject */
+  function userInterceptor($q, $rootScope, userHandler) {
+    return {
+      // responseSuccess: function (res) {
+      //   console.log('success');
+      //   console.log(res);
+      //   return $q.resolve(res);
+      // },
+      responseError: function (res) {
+
+        switch (res.status) {
+          // 没有权限
+        case userHandler.config.status.Unauthorized:
+          switch (res.data.code) {
+          case userHandler.config.erroCode.nologin: // 没有登录
+            $rootScope.$emit("userUnauthorizedIntercepted", "nologin", res.data, res);
+            break;
+          case userHandler.config.erroCode.overtime: // 登录超时
+            $rootScope.$emit("userUnauthorizedIntercepted", "overtime", res.data, res);
+            break;
+          default: // 未知
+            $rootScope.$emit("userUnauthorizedIntercepted", "unknown", res.data, res);
+            break;
+          }
+          break;
+          // 其他
+        default:
+          $rootScope.$emit("userIntercepted", res);
+          break;
+        }
+
+        return $q.reject(res);
+      }
+    }
+
   }
 
 })();

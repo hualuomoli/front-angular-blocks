@@ -12,12 +12,19 @@ var sourcemaps = require('gulp-sourcemaps');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 
+var config = {
+  dist: './dist'
+    // dist: '../front/bower_components/front-angular-blocks/dist'
+}
+
 // clean
 gulp.task('clean', function () {
-  return gulp.src('./dist', {
+  return gulp.src(config.dist, {
       read: false
     })
-    .pipe(clean());
+    .pipe(clean({
+      force: true
+    }));
 });
 
 // js
@@ -30,18 +37,19 @@ gulp.task('js', ['clean'], function () {
       './src/**/*.provider.js',
       './src/**/*.factory.js',
       './src/**/*.service.js',
-      './src/**/*.decorator.js'
+      './src/**/*.decorator.js',
+      './src/**/*.interceptor.js'
     ])
     .pipe(concat('front-angular-blocks.js'))
     .pipe(ngAnnotate())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest(config.dist))
     .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(rename(function (path) {
       path.basename += ".min";
     }))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(config.dist));
 });
 
 
