@@ -97,7 +97,8 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.http', [
+  angular.module('blocks.exception', [
+    // blocks
     'blocks.logger'
   ]);
 
@@ -105,8 +106,7 @@
 (function () {
   'use strict';
 
-  angular.module('blocks.exception', [
-    // blocks
+  angular.module('blocks.http', [
     'blocks.logger'
   ]);
 
@@ -140,6 +140,26 @@
 (function () {
   'use strict';
 
+  angular.module('blocks.exception')
+    .provider('exceptionHandler', exceptionHandlerProvider);
+
+  function exceptionHandlerProvider() {
+    /* jshint validthis:true */
+    this.config = {
+      appErrorPrefix: 'front-' // error log's prefix
+    };
+
+    this.$get = function () {
+      return {
+        config: this.config
+      };
+    };
+  }
+
+})();
+(function () {
+  'use strict';
+
   angular.module('blocks.http')
     .provider('httpHandler', httpHandleProvider);
 
@@ -159,26 +179,6 @@
       }
     }
 
-  }
-
-})();
-(function () {
-  'use strict';
-
-  angular.module('blocks.exception')
-    .provider('exceptionHandler', exceptionHandlerProvider);
-
-  function exceptionHandlerProvider() {
-    /* jshint validthis:true */
-    this.config = {
-      appErrorPrefix: 'front-' // error log's prefix
-    };
-
-    this.$get = function () {
-      return {
-        config: this.config
-      };
-    };
   }
 
 })();
